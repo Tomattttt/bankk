@@ -1,5 +1,34 @@
-# Object file
-*.o
+print("Банкомат")
+def chisla(n):
+    ed = ['', 'один','два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять', 'одиннадцать',
+             'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать']
+    tis12 = ['', 'одна', 'две']
+    des = ['', '', 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто']
+    sot = ['', 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот']
+    tis = [ '','тысяча', 'тысячи', 'тысяч']
 
-# Ada Library Information
-*.ali
+    def preobrazovanie(num):
+        if num < 20:
+            return ed[num]
+        elif num < 100:
+            return des[num//10] + ' ' + ed[num%10]
+        elif num < 1000:
+            return sot[num//100] + ' ' + preobrazovanie(num%100)
+        elif num == 100000:
+            return "Сто тысяч"
+        else:
+            for i in range(1, 4):
+                if 999 < num < 2999:
+                    return tis12[num//1000] + ' ' + tis[num//1000] + ' ' + preobrazovanie(num % 10 ** (3 * i))
+                if num < 10 ** (3 * (i + 1)):
+                    return preobrazovanie(num // 10 ** (3 * i)) + ' ' + tis[i] + ' ' + preobrazovanie(num % 10 ** (3 * i))
+    return preobrazovanie(n)
+
+
+sum = int(input('Введите сумму от 1 до 100000: '))
+if  sum > 100000 or sum< 1:
+    print('Сумма должна быть от 1 до 100000')
+else:
+    words = chisla(sum)
+
+    print(f'Банкомат выдаст сумму: {words.capitalize()} .')
