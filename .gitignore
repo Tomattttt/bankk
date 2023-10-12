@@ -24,11 +24,20 @@ def chisla(n):
                     return preobrazovanie(num // 10 ** (3 * i)) + ' ' + tis[i] + ' ' + preobrazovanie(num % 10 ** (3 * i))
     return preobrazovanie(n)
 
-
+def okonchanie(sum):
+    rubl = 'рубл'
+    if sum % 10 >= 2 and sum % 10 <= 4:
+        rubl += 'я'
+    elif (sum % 100 >= 10 and sum % 100 <= 20) or sum % 10 == 0 or sum % 10 >= 5 :
+        rubl += 'ей'
+    elif sum - (sum - 1) == 1:
+        rubl += "ь"
+    return rubl
 sum = int(input('Введите сумму от 1 до 100000: '))
 if  sum > 100000 or sum< 1:
     print('Сумма должна быть от 1 до 100000')
 else:
     words = chisla(sum)
+    currency = okonchanie(sum)
+    print(f'Банкомат выдаст сумму: {words.capitalize()} {currency}.')
 
-    print(f'Банкомат выдаст сумму: {words.capitalize()} .')
